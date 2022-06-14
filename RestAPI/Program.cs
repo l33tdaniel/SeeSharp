@@ -12,20 +12,24 @@ namespace std
         static async Task Main(string[] args)
         {
             Program program = new Program();
+            // asynchronous
             await program.getToDoItems();
-
         }
         private async Task getToDoItems()
         {
+            // this is where we want to connect to
             string response = await client.GetStringAsync("https://jsonplaceholder.typicode.com/todos");
 
-            Console.WriteLine(response);
+           // printing the entire entry.. Console.WriteLine(response);
 
             List<Todo> todo = JsonConvert.DeserializeObject<List<Todo>>(response);
-            
+            // looping through each of the entries
             foreach (var item in todo)
             {
-                Console.WriteLine("Title " + item.title + " \n ");
+                if(item.id == 2) {
+                    // writing the title for all items with an id of 2
+                    Console.WriteLine("Title " + item.id + " \n ");
+                }
             }
         }
     }
